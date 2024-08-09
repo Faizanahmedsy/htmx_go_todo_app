@@ -4,12 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Faizans Go HTML Todo App</title>
+    <script
+      src="https://unpkg.com/htmx.org@2.0.1"
+      integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <h1>wooooooooooooooo</h1>
 
-    {{range .Todos}}
-    <li>{{.Message}}</li>
-    {{end}}
+    <ul>
+      {{range .Todos}} {{block "todo-list-element" .}}
+      <li>{{.Message}}</li>
+      {{end}} {{end}}
+    </ul>
+
+    <form hx-swap="beforeend" hx-target="#todo-list" hx-post="/add-todo">
+      <label for="message">Message</label>
+      <input type="text" id="message" name="message" />
+      <button type="submit">Create</button>
+    </form>
   </body>
 </html>
